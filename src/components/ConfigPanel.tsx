@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppConfig } from '../types';
-import { Settings, Lock, Download, Smartphone, Share2, Globe, Shield, RefreshCw } from 'lucide-react';
+import { LordRamLogo } from './LordRamLogo';
+import { Settings, Lock, Download, Smartphone, Share2, Globe, Shield, RefreshCw, Sparkles } from 'lucide-react';
 
 interface ConfigPanelProps {
   config: AppConfig;
@@ -16,24 +17,24 @@ export const ConfigPanel: React.FC<ConfigPanelProps> = ({ config, setConfig, onR
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 text-white">
       
-      <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
+      {/* Lord Ram Emblem Badge Card */}
+      <div className="bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-600/10 border border-amber-500/30 p-5 rounded-2xl mb-6 flex items-center gap-4 text-white">
+        <div className="p-2.5 bg-slate-950 rounded-2xl border border-amber-500/40 shadow-lg shadow-amber-500/20">
+          <LordRamLogo size={56} showText={false} />
+        </div>
+        <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
-            <Settings className="w-5 h-5 text-indigo-400" />
-            <h2 className="text-lg font-bold text-white">Application Customizer</h2>
+            <h3 className="text-base font-extrabold text-amber-300">
+              Lord Ram Emblem & App Logo
+            </h3>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              Active Logo
+            </span>
           </div>
-          <p className="text-xs text-slate-400">
-            Tune target URL, PIN login, package name, and permissions before exporting to GitHub Actions.
+          <p className="text-xs text-slate-300 leading-relaxed">
+            Sacred Suryavanshi Bow & Arrow vector logo integrated into APK launcher icons, splash screen, PIN login header, and top action bar.
           </p>
         </div>
-
-        <button
-          onClick={onReset}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all border border-slate-700"
-        >
-          <RefreshCw className="w-3.5 h-3.5" />
-          Reset to Defaults
-        </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -61,14 +62,39 @@ export const ConfigPanel: React.FC<ConfigPanelProps> = ({ config, setConfig, onR
             <label className="block text-xs font-medium text-slate-300 mb-1">
               Target Website URL
             </label>
-            <div className="relative">
+            <div className="relative mb-2">
               <Globe className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
               <input
                 type="url"
                 value={config.websiteUrl}
                 onChange={(e) => handleChange('websiteUrl', e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-indigo-500 font-mono"
+                className="w-full pl-9 pr-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
               />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] text-slate-400">Quick URL:</span>
+              <button
+                type="button"
+                onClick={() => handleChange('websiteUrl', 'https://app.rambilling.com')}
+                className={`px-2 py-1 rounded text-[11px] font-mono border transition-all ${
+                  config.websiteUrl === 'https://app.rambilling.com'
+                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 font-bold'
+                    : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
+                }`}
+              >
+                app.rambilling.com
+              </button>              <button
+                type="button"
+                onClick={() => handleChange('websiteUrl', 'https://ram-billing.lovable.app/')}
+                className={`px-2 py-1 rounded text-[11px] font-mono border transition-all ${
+                  config.websiteUrl === 'https://ram-billing.lovable.app/'
+                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 font-bold'
+                    : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
+                }`}
+              >
+                ram-billing.lovable.app
+              </button>
             </div>
           </div>
 

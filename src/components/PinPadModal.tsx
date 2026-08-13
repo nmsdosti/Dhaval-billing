@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Lock, Delete, CheckCircle2, AlertCircle, KeyRound, ShieldCheck } from 'lucide-react';
+import { Delete, CheckCircle2, AlertCircle, KeyRound, ShieldCheck } from 'lucide-react';
+import { LordRamLogo } from './LordRamLogo';
 
 interface PinPadModalProps {
   requiredPin: string;
@@ -62,16 +63,16 @@ export const PinPadModal: React.FC<PinPadModalProps> = ({
   return (
     <div className="flex flex-col items-center justify-center p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl max-w-sm w-full mx-auto text-white">
       
-      {/* Icon Badge */}
-      <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 ${
+      {/* Lord Ram Logo Badge */}
+      <div className={`p-2 rounded-2xl flex items-center justify-center mb-3 transition-all duration-300 ${
         isSuccess 
-          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 scale-110' 
-          : 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
+          ? 'bg-emerald-500/20 border border-emerald-500/40 scale-110' 
+          : 'bg-gradient-to-tr from-amber-600/30 to-orange-500/20 border border-amber-500/40 shadow-lg shadow-amber-500/20'
       }`}>
         {isSuccess ? (
-          <CheckCircle2 className="w-8 h-8 animate-bounce" />
+          <CheckCircle2 className="w-10 h-10 text-emerald-400 animate-bounce" />
         ) : (
-          <Lock className="w-8 h-8" />
+          <LordRamLogo size={48} showText={false} />
         )}
       </div>
 

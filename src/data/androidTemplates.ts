@@ -517,6 +517,66 @@ include(":app")
 </resources>
 `;
 
+  const icLauncherForegroundXml = `<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Gold & Saffron Sun Rays Halo -->
+    <path
+        android:pathData="M54,18 L54,26 M54,82 L54,90 M18,54 L26,54 M82,54 L90,54 M28,28 L34,34 M74,74 L80,80 M80,28 L74,34 M34,74 L28,80"
+        android:strokeColor="#FFB300"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"/>
+        
+    <!-- Lord Ram's Bow (Kodanda Bow) -->
+    <path
+        android:pathData="M32,30 C22,50 22,58 32,78 C36,65 36,43 32,30 Z"
+        android:fillColor="#FF8F00"
+        android:strokeColor="#FFE082"
+        android:strokeWidth="1"/>
+
+    <!-- Bow String -->
+    <path
+        android:pathData="M32,30 L32,78"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5"/>
+
+    <!-- Divine Arrow (Baan) -->
+    <path
+        android:pathData="M22,54 L82,54"
+        android:strokeColor="#FFC107"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"/>
+
+    <!-- Arrowhead -->
+    <path
+        android:pathData="M84,54 L70,45 L74,54 L70,63 Z"
+        android:fillColor="#FFC107"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="0.8"/>
+
+    <!-- Saffron Flame Tilak Crest -->
+    <path
+        android:pathData="M54,22 C57,30 59,34 59,39 C59,42 56.8,44 54,44 C51.2,44 49,42 49,39 C49,34 51,30 54,22 Z"
+        android:fillColor="#FF3D00"/>
+</vector>
+`;
+
+  const icLauncherBackgroundXml = `<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#1E1B4B"
+        android:pathData="M0,0h108v108h-108z"/>
+</vector>
+`;
+
   const colorsXml = `<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="purple_200">#FFBB86FC</color>
@@ -674,6 +734,20 @@ exec gradle "$@"
       language: 'xml',
       content: stringsXml,
       description: 'String resources'
+    },
+    {
+      path: 'app/src/main/res/drawable/ic_launcher_foreground.xml',
+      name: 'ic_launcher_foreground.xml',
+      language: 'xml',
+      content: icLauncherForegroundXml,
+      description: 'Lord Ram Bow & Arrow divine emblem vector launcher icon foreground'
+    },
+    {
+      path: 'app/src/main/res/drawable/ic_launcher_background.xml',
+      name: 'ic_launcher_background.xml',
+      language: 'xml',
+      content: icLauncherBackgroundXml,
+      description: 'Launcher icon background vector'
     },
     {
       path: 'app/src/main/res/values/colors.xml',

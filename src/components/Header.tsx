@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppConfig, ViewTab } from '../types';
+import { LordRamLogo } from './LordRamLogo';
 import { 
   Smartphone, 
   Code2, 
@@ -37,22 +38,22 @@ export const Header: React.FC<HeaderProps> = ({
           
           {/* Logo & Title */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-emerald-400 p-0.5 shadow-lg shadow-indigo-500/20">
-              <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                <Smartphone className="w-5 h-5 text-indigo-400" />
+            <div className="p-1 rounded-2xl bg-gradient-to-tr from-amber-600 via-amber-500 to-orange-400 shadow-lg shadow-amber-500/20">
+              <div className="bg-slate-950 p-1 rounded-xl">
+                <LordRamLogo size={36} />
               </div>
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="font-bold text-base sm:text-lg text-white tracking-tight">
+                <h1 className="font-extrabold text-base sm:text-lg text-amber-300 tracking-tight flex items-center gap-1.5">
                   {config.appName}
                 </h1>
-                <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
                   <Sparkles className="w-3 h-3" /> GitHub Action Ready
                 </span>
               </div>
-              <p className="text-xs text-slate-400 truncate max-w-[220px] sm:max-w-md">
-                Target: <span className="text-slate-300 font-mono">{config.websiteUrl}</span>
+              <p className="text-xs text-slate-400 truncate max-w-[220px] sm:max-w-md font-mono">
+                {config.websiteUrl}
               </p>
             </div>
           </div>
