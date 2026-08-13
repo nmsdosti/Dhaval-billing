@@ -1,0 +1,6 @@
+{
+  "name": "Ram Billing WebView & APK Builder",
+  "description": "Convert website into Android WebView APK via GitHub Actions with PIN login, PDF download/share permissions, and back button handling.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
