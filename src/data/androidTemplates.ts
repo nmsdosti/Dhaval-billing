@@ -8,13 +8,7 @@ export function generateProjectFiles(config: AppConfig): GeneratedFile[] {
 
 on:
   push:
-    branches:
-      - '*'
-      - '**'
   pull_request:
-    branches:
-      - '*'
-      - '**'
   workflow_dispatch:
 
 jobs:
@@ -33,21 +27,31 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Grant Execute Permission for Gradlew
-        run: chmod +x gradlew || true
+      - name: Ensure Gradlew Executable
+        run: |
+          if [ ! -f gradlew ]; then
+            echo "Gradlew script missing. Installing gradle wrapper..."
+            gradle wrapper || true
+          fi
+          chmod +x gradlew || true
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug --stacktrace
+        run: |
+          ./gradlew assembleDebug --stacktrace || gradle assembleDebug --stacktrace
 
       - name: Build Release APK (Unsigned)
-        run: ./gradlew assembleRelease --stacktrace || true
+        run: |
+          ./gradlew assembleRelease --stacktrace || gradle assembleRelease --stacktrace || true
 
       - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${config.appName.replace(/\s+/g, '-').toLowerCase()}-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: |
+            app/build/outputs/apk/debug/*.apk
+            app/build/outputs/apk/release/*.apk
           retention-days: 30
+          if-no-files-found: warn
 
       - name: Upload Release APK Artifact
         uses: actions/upload-artifact@v4
@@ -55,6 +59,7 @@ jobs:
           name: ${config.appName.replace(/\s+/g, '-').toLowerCase()}-release-apk
           path: app/build/outputs/apk/release/app-release-unsigned.apk
           retention-days: 30
+          if-no-files-found: ignore
 `;
 
   // 2. MainActivity.kt
@@ -572,6 +577,19 @@ git push -u origin main
 - **Package ID**: \`${config.packageName}\`
 `;
 
+  const gradleWrapperProperties = `distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+distributionUrl=https\\://services.gradle.org/distributions/gradle-8.2-bin.zip
+networkTimeout=10000
+validateDistributionUrl=true
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
+`;
+
+  const gradlewScript = `#!/usr/bin/env sh
+exec gradle "$@"
+`;
+
   return [
     {
       path: '.github/workflows/build-apk.yml',
@@ -579,6 +597,20 @@ git push -u origin main
       language: 'yaml',
       content: githubWorkflow,
       description: 'Automated GitHub Action workflow to build APK on GitHub servers'
+    },
+    {
+      path: 'gradle/wrapper/gradle-wrapper.properties',
+      name: 'gradle-wrapper.properties',
+      language: 'properties',
+      content: gradleWrapperProperties,
+      description: 'Gradle wrapper version configuration'
+    },
+    {
+      path: 'gradlew',
+      name: 'gradlew',
+      language: 'bash',
+      content: gradlewScript,
+      description: 'Gradle wrapper executable script'
     },
     {
       path: `app/src/main/java/${packagePath}/MainActivity.kt`,

@@ -7,14 +7,19 @@ export async function downloadProjectZip(config: AppConfig): Promise<void> {
   const files = generateProjectFiles(config);
 
   files.forEach((file) => {
-    zip.file(file.path, file.content);
+    if (file.path === 'gradlew') {
+      zip.file(file.path, file.content, { unixPermissions: '755' });
+    } else {
+      zip.file(file.path, file.content);
+    }
   });
 
-  // Add dummy gradlew script file for completeness
-  zip.file('gradlew', '#!/usr/bin/env sh\nexec gradle "$@"\n');
   zip.file('gradlew.bat', '@rem Gradle startup script for Windows\n');
 
-  const content = await zip.generateAsync({ type: 'blob' });
+  const content = await zip.generateAsync({ 
+    type: 'blob',
+    platform: 'UNIX'
+  });
   
   const fileName = `${config.appName.toLowerCase().replace(/\s+/g, '-')}-github-apk-repo.zip`;
   
